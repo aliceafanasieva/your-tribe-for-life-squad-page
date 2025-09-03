@@ -8,3 +8,7 @@ https://www.figma.com/board/XDADT6u37dq8HleEwk0dT5/teamcanvas?node-id=0-1&t=8p3f
 
 ## Code conventies 
 Bij ons samenwerking gelden ook code conventies, beschreven hier: https://docs.fdnd.nl/conventies.html#conventies.
+
+## Commits conventies
+
+Bij ons samenwerking gelden ook code conventies, beschreven hier: https://www.conventionalcommits.org/nl/v1.0.0/.
