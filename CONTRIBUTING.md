@@ -12,3 +12,12 @@ Bij ons samenwerking gelden ook code conventies, beschreven hier: https://docs.f
 ## Commits conventies
 
 Bij ons samenwerking gelden ook code conventies, beschreven hier: https://www.conventionalcommits.org/nl/v1.0.0/.
+
+## Animatie naamgeving conventies 
+
+Voorbeeld: .animation-view-transition--down
+
+Dus:
+1. aangeven dat dit een animatie is
+2. wat van soort animatie is dit
+3. met -- (dubbelscore) aangeven andere specificatie, zoals richting
