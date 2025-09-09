@@ -17,11 +17,8 @@
       );
     }
     if (sort === "age") {
-      return [...members].sort((a, b) => {
-        const da = a.birthdate ? new Date(a.birthdate).getTime() : Infinity;
-        const db = b.birthdate ? new Date(b.birthdate).getTime() : Infinity;
-        return da - db;
-      });
+      const t = (d) => (d ? new Date(d).getTime() : Infinity);
+      return [...members].sort((a, b) => t(a.birthdate) - t(b.birthdate));
     }
     return members;
   });
@@ -31,6 +28,9 @@
   <span>sort:</span>
   <button class:selected={sort === "name"} on:click={() => toggleSort("name")}
     >A–Z</button
+  >
+  <button class:selected={sort === "age"} on:click={() => toggleSort("age")}
+    >age</button
   >
 </div>
 
