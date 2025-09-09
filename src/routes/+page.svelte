@@ -3,24 +3,54 @@
   const members = data.members;
 
   let sort = $state("default");
+  let filter = $state("all");
 
   function toggleSort(kind) {
     sort = sort === kind ? "default" : kind;
   }
 
+  function toggleFilter(kind) {
+    filter = filter === kind ? "all" : kind;
+  }
+
+  const filteredMembers = $derived.by(() => {
+    if (filter === "teachers") {
+      return members.filter(
+        (member) =>
+          member.role.includes("co_teacher") ||
+          member.role.includes("squad_leader")
+      );
+    }
+
+    if (filter === "students") {
+      return members.filter(
+        (member) =>
+          member.role.includes("member") &&
+          !member.role.includes("co_teacher") &&
+          !member.role.includes("squad_leader")
+      );
+    }
+
+    return members;
+  });
+
   const sortedMembers = $derived.by(() => {
     if (sort === "name") {
-      return [...members].sort((a, b) =>
+      return [...filteredMembers].sort((a, b) =>
         (a.name ?? "").localeCompare(b.name ?? "", "nl", {
           sensitivity: "base",
         })
       );
     }
+
     if (sort === "age") {
       const t = (d) => (d ? new Date(d).getTime() : Infinity);
-      return [...members].sort((a, b) => t(a.birthdate) - t(b.birthdate));
+      return [...filteredMembers].sort(
+        (a, b) => t(a.birthdate) - t(b.birthdate)
+      );
     }
-    return members;
+
+    return filteredMembers;
   });
 </script>
 
@@ -31,6 +61,16 @@
   >
   <button class:selected={sort === "age"} on:click={() => toggleSort("age")}
     >age</button
+  >
+
+  <span>filter:</span>
+  <button
+    class:selected={filter === "teachers"}
+    on:click={() => toggleFilter("teachers")}>teachers</button
+  >
+  <button
+    class:selected={filter === "students"}
+    on:click={() => toggleFilter("students")}>students</button
   >
 </div>
 
