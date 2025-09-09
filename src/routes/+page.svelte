@@ -4,7 +4,8 @@
   const members = data.members;
 </script>
 
-<h1>Welcome to Sqaudpage</h1>
+<h1>Squadpage</h1>
+<h2>2025-2026</h2>
 
 {#each members as member}
   <a href={member.id}>{member.name}</a>
@@ -12,6 +13,7 @@
 
 <style>
   a {
-    border: 2px solid plum;
+    border: none;
+    text-decoration: none;
   }
 </style>

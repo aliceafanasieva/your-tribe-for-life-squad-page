@@ -1,6 +1,11 @@
-export async function load({ url }) {
-  const membersResponse = await fetch('https://fdnd.directus.app/items/person?');
-  const membersData = await membersResponse.json();
+export async function load({ fetch }) {
+  const response = await fetch(
+    'https://fdnd.directus.app/items/person?fields=*,squads.squad_id.name,squads.squad_id.cohort,squads.squad_id.tribe.name&filter[squads][squad_id][cohort][_eq]=2526&filter[squads][squad_id][tribe][name][_eq]=FDND%20Jaar%202'
+  );
 
-  return {members: membersData.data};
+  const data = await response.json();
+
+  const members = data.data.filter(member => member.mugshot);
+
+  return { members };
 }
