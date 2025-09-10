@@ -3,10 +3,14 @@
   import FilterBar from "$lib/components/FilterBar.svelte";
 
   let { data } = $props();
-  const members = data.members;
+  const members = data?.members ?? [];
+
+  const availableSquads = ["2E", "2F"];
 
   let sort = $state("default");
   let filter = $state("all");
+  let search = $state("");
+  let selectedSquad = $state("");
 
   function handleSort(event) {
     sort = event.detail.value;
@@ -15,21 +19,50 @@
     filter = event.detail.value;
   }
 
+  function selectAll() {
+    selectedSquad = "";
+    filter = "all";
+  }
+  function selectSquad(sq) {
+    selectedSquad = sq;
+  }
+  function selectTeachers() {
+    selectedSquad = "";
+    filter = "teachers";
+  }
+
+  const rolesOf = (m) =>
+    Array.isArray(m?.role)
+      ? m.role.map((r) => String(r).toLowerCase())
+      : [String(m?.role ?? "").toLowerCase()];
+
+  const isTeacher = (m) => {
+    const r = rolesOf(m);
+    return r.includes("co_teacher") || r.includes("squad_leader");
+  };
+  const isStudent = (m) => {
+    const r = rolesOf(m);
+    return r.includes("member") && !isTeacher(m);
+  };
+
   const filteredMembers = $derived.by(() => {
-    if (filter === "teachers") {
-      return members.filter(
-        (m) => m.role.includes("co_teacher") || m.role.includes("squad_leader")
+    let list = members;
+
+    if (filter === "teachers") list = list.filter(isTeacher);
+    else if (filter === "students") list = list.filter(isStudent);
+
+    if (selectedSquad) {
+      list = list.filter((m) =>
+        m.squads?.some((s) => s?.squad_id?.name === selectedSquad)
       );
     }
-    if (filter === "students") {
-      return members.filter(
-        (m) =>
-          m.role.includes("member") &&
-          !m.role.includes("co_teacher") &&
-          !m.role.includes("squad_leader")
-      );
+
+    const q = search.trim().toLowerCase();
+    if (q) {
+      list = list.filter((m) => (m.name ?? "").toLowerCase().includes(q));
     }
-    return members;
+
+    return list;
   });
 
   const sortedMembers = $derived.by(() => {
@@ -86,25 +119,60 @@
   </div>
 </section>
 
-<section class="filter-sort-bar">
+<section class="filter-sort-bar container">
   <SortBar active={sort} on:sort={handleSort} />
   <FilterBar active={filter} on:filter={handleFilter} />
 </section>
 
+<section class="search-and-squad container">
+  <input
+    type="text"
+    placeholder="Search by name..."
+    bind:value={search}
+    aria-label="Search by name"
+  />
+
+  <div class="squad-buttons">
+    <button
+      class:selected={!selectedSquad && filter === "all"}
+      on:click={selectAll}
+    >
+      All
+    </button>
+
+    {#each availableSquads as squad}
+      <button
+        class:selected={selectedSquad === squad}
+        on:click={() => selectSquad(squad)}
+      >
+        {squad}
+      </button>
+    {/each}
+
+    <button class:selected={filter === "teachers"} on:click={selectTeachers}>
+      Teachers
+    </button>
+  </div>
+</section>
+
 <div class="members-grid">
-  {#each sortedMembers as member}
-    <article class="member-card">
-      {#if member.mugshot}
-        <img
-          src={"https://fdnd.directus.app/assets/" +
-            member.mugshot +
-            "?width=300&height=300&fit=cover"}
-          alt={member.name}
-        />
-      {/if}
-      <a href={member.id}>{member.name}</a>
-    </article>
-  {/each}
+  {#if sortedMembers.length > 0}
+    {#each sortedMembers as member}
+      <article class="member-card">
+        {#if member.mugshot}
+          <img
+            src={"https://fdnd.directus.app/assets/" +
+              member.mugshot +
+              "?width=300&height=300&fit=cover"}
+            alt={member.name}
+          />
+        {/if}
+        <a href={"/" + member.id}>{member.name}</a>
+      </article>
+    {/each}
+  {:else}
+    <p class="empty">No members found</p>
+  {/if}
 </div>
 
 <style>
@@ -165,33 +233,26 @@
     font-size: 0.95rem;
     line-height: 1;
   }
-
-  /* 3 gelijke kolommen -> echte center alignment */
-  .topbar_inner {
+  .topbar__inner {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
   }
-
   .topbar_brand {
     justify-self: start;
     text-transform: lowercase;
     letter-spacing: 0.02em;
   }
-
   .topbar_center {
-    justify-self: center; /* zit echt in het midden van de container */
+    justify-self: center;
     text-transform: lowercase;
   }
-
   .topbar_right {
     justify-self: end;
     display: flex;
     align-items: center;
     gap: 18px;
   }
-
-  /* ronde “D”-badge */
   .dot {
     display: inline-flex;
     width: 36px;
@@ -208,7 +269,7 @@
     position: relative;
     padding-block: 2.5rem 1rem;
   }
-  .hero_wrap {
+  .hero__wrap {
     position: relative;
   }
   .hero_title {
@@ -232,7 +293,6 @@
     letter-spacing: 0.06em;
     pointer-events: none;
   }
-
   .hero_star {
     position: absolute;
     right: clamp(10px, 6vw, 120px);
@@ -246,7 +306,45 @@
 
   .filter-sort-bar {
     display: flex;
-    flex-direction: row;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 1rem auto 0.5rem;
+  }
+
+  .search-and-squad {
+    display: grid;
+    gap: 1rem;
+    place-items: center;
+    margin: 1rem auto 2rem;
+    max-width: 520px;
+  }
+  .search-and-squad input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid plum;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  .squad-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .squad-buttons button {
+    border: 2px solid plum;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+  }
+  .squad-buttons button.selected,
+  .squad-buttons button:focus-visible {
+    background: plum;
+    color: white;
+    outline: none;
   }
 
   .members-grid {
@@ -257,20 +355,17 @@
     max-width: 1200px;
     margin: 0 auto 4rem;
   }
-
   .member-card {
     display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 200px;
   }
-
   .member-card img {
     width: 200px;
     height: 200px;
     object-fit: cover;
   }
-
   .member-card a {
     margin-top: 0.5rem;
     font-size: 1rem;
@@ -279,23 +374,23 @@
     color: black;
     text-align: center;
   }
+  .empty {
+    text-align: center;
+    color: gray;
+    font-style: italic;
+    grid-column: 1 / -1;
+  }
 
   @media (min-width: 768px) {
-    h1 {
-      font-size: 8rem;
-    }
-
     .members-grid {
       grid-template-columns: repeat(2, 220px);
     }
   }
-
   @media (min-width: 900px) {
     .members-grid {
       grid-template-columns: repeat(3, 220px);
     }
   }
-
   @media (min-width: 1200px) {
     .members-grid {
       grid-template-columns: repeat(4, 220px);

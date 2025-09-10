@@ -5,7 +5,8 @@ export async function load({ fetch }) {
 
   const data = await response.json();
 
-  const members = data.data.filter(member => member.mugshot);
+  // Toon alleen members met een mugshot
+  const members = data.data.filter((member) => member.mugshot);
 
   return { members };
 }
