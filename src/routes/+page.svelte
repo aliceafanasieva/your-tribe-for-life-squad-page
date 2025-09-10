@@ -50,8 +50,41 @@
   });
 </script>
 
-<h1>Squadpage</h1>
-<h2>2025-2026</h2>
+<header class="topbar">
+  <div class="container topbar__inner">
+    <span class="topbar_brand">squadpage</span>
+    <span class="topbar_center">fdnd</span>
+    <div class="topbar_right">
+      <span>2025</span>
+      <span class="dot">D</span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero__wrap">
+    <div class="hero_star">*</div>
+    <h1 class="hero_title">Squadpage</h1>
+    <div class="hero_year">2025–2026</div>
+
+    <div class="intro-grid">
+      <p class="intro left">
+        <span class="kicker">WELCOME!</span> <span class="tiny">THIS</span>
+        <span class="strong">SQUADPAGE</span> <span class="tiny">WAS MADE</span>
+        <span class="tiny">BY</span> <span class="strong">ALISA AND ABEER</span>
+      </p>
+      <p class="intro right">
+        <span class="tiny">HERE YOU CAN</span>
+        <span class="strong">DISCOVER</span>
+        <span class="tiny">THE TWO</span> <span class="strong">SQUADS</span>
+        <span class="tiny">FROM THE SECOND YEAR OF</span>
+        <span class="strong">FDND</span> <span class="tiny">COURSE</span>
+      </p>
+    </div>
+
+    <p class="discover">discover squads</p>
+  </div>
+</section>
 
 <section class="filter-sort-bar">
   <SortBar active={sort} on:sort={handleSort} />
@@ -75,9 +108,30 @@
 </div>
 
 <style>
+  @font-face {
+    font-family: "Milton One";
+    src: url("/fonts/Milton_One_Bold.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Codystar";
+    src: url("/fonts/Codystar-Light.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :global(:root) {
+    --container: 1200px;
+    --text: #0d0d21;
+  }
+
   :global(body) {
     margin: 0;
-    color: var(--text, #0d0d21);
+    color: var(--text);
     background: transparent;
     font-family:
       "Inter",
@@ -100,20 +154,94 @@
     background: linear-gradient(to bottom, #ffa6ca 0%, #fffeff 60%);
   }
 
-  h1 {
-    font-family: "Snell Roundhand", cursive;
-    font-size: 6rem;
-    font-weight: 100;
-    text-align: center;
-    margin-top: 3rem;
-    margin-bottom: 0;
+  .container {
+    max-width: var(--container);
+    width: min(100% - 32px, var(--container));
+    margin-inline: auto;
   }
 
-  h2 {
+  .topbar {
+    padding: 12px 0;
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+
+  /* 3 gelijke kolommen -> echte center alignment */
+  .topbar_inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+  }
+
+  .topbar_brand {
+    justify-self: start;
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+  }
+
+  .topbar_center {
+    justify-self: center; /* zit echt in het midden van de container */
+    text-transform: lowercase;
+  }
+
+  .topbar_right {
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  /* ronde “D”-badge */
+  .dot {
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--text);
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .hero {
+    position: relative;
+    padding-block: 2.5rem 1rem;
+  }
+  .hero_wrap {
+    position: relative;
+  }
+  .hero_title {
+    font-family: "Milton One", Georgia, serif;
+    color: #fff;
+    font-weight: 700;
+    font-size: clamp(80px, 12vw, 500px);
+    line-height: 0.9;
     text-align: center;
-    font-size: 1.5rem;
-    font-weight: 400;
-    margin-bottom: 3rem;
+    margin: 0.4rem 0 0.6rem;
+  }
+  .hero_year {
+    position: absolute;
+    inset-inline: 0;
+    top: clamp(-30px, -4vw, -60px);
+    text-align: center;
+    font-family: "Codystar", system-ui, sans-serif;
+    font-size: clamp(80px, 7.5vw, 300px);
+    color: #fff;
+    opacity: 0.55;
+    letter-spacing: 0.06em;
+    pointer-events: none;
+  }
+
+  .hero_star {
+    position: absolute;
+    right: clamp(10px, 6vw, 120px);
+    top: clamp(10px, 6vw, 120px);
+    font-family: "Codystar", system-ui, sans-serif;
+    font-size: clamp(40px, 6vw, 140px);
+    color: #fff;
+    opacity: 0.85;
+    pointer-events: none;
   }
 
   .filter-sort-bar {
