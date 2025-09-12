@@ -19,16 +19,8 @@
     filter = event.detail.value;
   }
 
-  function selectAll() {
-    selectedSquad = "";
-    filter = "all";
-  }
-  function selectSquad(sq) {
-    selectedSquad = sq;
-  }
-  function selectTeachers() {
-    selectedSquad = "";
-    filter = "teachers";
+  function clickSquad(sq) {
+    selectedSquad = selectedSquad === sq ? "" : sq;
   }
 
   const rolesOf = (m) =>
@@ -119,39 +111,30 @@
   </div>
 </section>
 
-<section class="filter-sort-bar container">
-  <SortBar active={sort} on:sort={handleSort} />
-  <FilterBar active={filter} on:filter={handleFilter} />
-</section>
-
-<section class="search-and-squad container">
+<section class="search container">
   <input
     type="text"
     placeholder="Search by name..."
     bind:value={search}
     aria-label="Search by name"
   />
+</section>
 
-  <div class="squad-buttons">
-    <button
-      class:selected={!selectedSquad && filter === "all"}
-      on:click={selectAll}
-    >
-      All
-    </button>
+<section class="filter-sort-bar container">
+  <SortBar active={sort} on:sort={handleSort} />
+  <FilterBar active={filter} on:filter={handleFilter} />
 
+  <div class="squadbar">
+    <span>squad:</span>
     {#each availableSquads as squad}
       <button
         class:selected={selectedSquad === squad}
-        on:click={() => selectSquad(squad)}
+        aria-pressed={selectedSquad === squad}
+        on:click={() => clickSquad(squad)}
       >
         {squad}
       </button>
     {/each}
-
-    <button class:selected={filter === "teachers"} on:click={selectTeachers}>
-      Teachers
-    </button>
   </div>
 </section>
 
@@ -183,7 +166,6 @@
     font-style: normal;
     font-display: swap;
   }
-
   @font-face {
     font-family: "Codystar";
     src: url("/fonts/Codystar-Light.ttf") format("truetype");
@@ -196,7 +178,6 @@
     --container: 1200px;
     --text: #0d0d21;
   }
-
   :global(body) {
     margin: 0;
     color: var(--text);
@@ -212,7 +193,6 @@
     font-weight: 300;
     position: relative;
   }
-
   :global(body)::before {
     content: "";
     position: fixed;
@@ -297,7 +277,7 @@
     position: absolute;
     right: clamp(10px, 6vw, 120px);
     top: clamp(10px, 6vw, 120px);
-    font-family: "Codystar", system-ui, sans-serif;
+    font-family: "Codystar";
     font-size: clamp(40px, 6vw, 140px);
     color: #fff;
     opacity: 0.85;
@@ -306,45 +286,57 @@
 
   .filter-sort-bar {
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
     justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    align-items: baseline;
+    flex-wrap: nowrap;
     margin: 1rem auto 0.5rem;
   }
 
-  .search-and-squad {
+  .squadbar {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 1rem;
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 0.9rem;
+    margin: 0;
+    flex-wrap: nowrap;
+    line-height: 1;
+  }
+  .squadbar span {
+    font-weight: 300;
+    font-size: 0.9rem;
+  }
+  .squadbar button {
+    background: none;
+    border: none;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-transform: lowercase;
+    font-weight: 300;
+    letter-spacing: 0.03rem;
+    transition: all 0.1s ease;
+  }
+  .squadbar button.selected {
+    font-weight: 300;
+    border-bottom: 1px solid black;
+  }
+
+  .search {
     display: grid;
     gap: 1rem;
     place-items: center;
     margin: 1rem auto 2rem;
     max-width: 520px;
   }
-  .search-and-squad input {
+  .search input {
     width: 100%;
     padding: 10px 12px;
     border: 2px solid plum;
     border-radius: 8px;
     font-size: 1rem;
-  }
-  .squad-buttons {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .squad-buttons button {
-    border: 2px solid plum;
-    padding: 6px 10px;
-    border-radius: 8px;
-    background: transparent;
-    cursor: pointer;
-  }
-  .squad-buttons button.selected,
-  .squad-buttons button:focus-visible {
-    background: plum;
-    color: white;
-    outline: none;
   }
 
   .members-grid {

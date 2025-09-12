@@ -28,19 +28,18 @@
   .sortbar {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: baseline;
     gap: 1rem;
     font-family: "Helvetica Neue", sans-serif;
     font-size: 0.9rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
+    margin: 0;
+    flex-wrap: nowrap;
+    line-height: 1;
   }
-
   .sortbar span {
     font-weight: 300;
     font-size: 0.9rem;
   }
-
   .sortbar button {
     background: none;
     border: none;
@@ -52,7 +51,6 @@
     letter-spacing: 0.03rem;
     transition: all 0.1s ease;
   }
-
   .sortbar button.selected {
     font-weight: 300;
     border-bottom: 1px solid black;
