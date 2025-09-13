@@ -27,19 +27,16 @@
 <style>
   .sortbar {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: baseline;
     gap: 1rem;
     font-family: "Helvetica Neue", sans-serif;
     font-size: 0.9rem;
     margin: 0;
-    flex-wrap: nowrap;
     line-height: 1;
+    font-weight: inherit;
   }
-  .sortbar span {
-    font-weight: 300;
-    font-size: 0.9rem;
-  }
+
   .sortbar button {
     background: none;
     border: none;
@@ -47,12 +44,11 @@
     font-size: 0.9rem;
     cursor: pointer;
     text-transform: lowercase;
-    font-weight: 300;
-    letter-spacing: 0.03rem;
     transition: all 0.1s ease;
+    font: inherit;
   }
+
   .sortbar button.selected {
-    font-weight: 300;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #000;
   }
 </style>

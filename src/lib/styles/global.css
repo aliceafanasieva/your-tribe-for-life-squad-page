@@ -22,15 +22,7 @@
   margin: 0;
   color: var(--text);
   background: transparent;
-  font-family:
-    "Inter",
-    system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Arial,
-    sans-serif;
-  font-weight: 300;
+  font-family: "Helvetica Neue", sans-serif;
   position: relative;
 }
 :global(body)::before {
@@ -145,7 +137,7 @@
   line-height: 1;
 }
 .squadbar span {
-  font-weight: 300;
+
   font-size: 0.9rem;
 }
 .squadbar button {
@@ -155,12 +147,12 @@
   font-size: 0.9rem;
   cursor: pointer;
   text-transform: lowercase;
-  font-weight: 300;
+
   letter-spacing: 0.03rem;
   transition: all 0.1s ease;
 }
 .squadbar button.selected {
-  font-weight: 300;
+
   border-bottom: 1px solid black;
 }
 
@@ -201,7 +193,6 @@
 .member-card a {
   margin-top: 0.5rem;
   font-size: 1rem;
-  font-weight: 300;
   text-decoration: none;
   color: black;
   text-align: center;

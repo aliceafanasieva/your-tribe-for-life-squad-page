@@ -91,7 +91,11 @@
     <div class="hero_star">*</div>
     <h1 class="hero_title">Squadpage</h1>
     <div class="hero_year">2025–2026</div>
+  </div>
+</section>
 
+<section class="main-container">
+  <section>
     <div class="intro-grid">
       <p class="intro left">
         <span class="kicker">WELCOME!</span> <span class="tiny">THIS</span>
@@ -106,57 +110,57 @@
         <span class="strong">FDND</span> <span class="tiny">COURSE</span>
       </p>
     </div>
+  </section>
 
-    <p class="discover">discover squads</p>
+  <p class="discover">discover squads</p>
+
+  <section class="search container">
+    <input
+      type="text"
+      placeholder="Search by name..."
+      bind:value={search}
+      aria-label="Search by name"
+    />
+  </section>
+
+  <section class="filter-sort-bar container">
+    <SortBar active={sort} on:sort={handleSort} />
+    <FilterBar active={filter} on:filter={handleFilter} />
+
+    <div class="squadbar">
+      <span>squad:</span>
+      {#each availableSquads as squad}
+        <button
+          class:selected={selectedSquad === squad}
+          aria-pressed={selectedSquad === squad}
+          on:click={() => clickSquad(squad)}
+        >
+          {squad}
+        </button>
+      {/each}
+    </div>
+  </section>
+
+  <div class="members-grid">
+    {#if sortedMembers.length > 0}
+      {#each sortedMembers as member}
+        <article class="member-card">
+          {#if member.mugshot}
+            <img
+              src={"https://fdnd.directus.app/assets/" +
+                member.mugshot +
+                "?width=300&height=300&fit=cover"}
+              alt={member.name}
+            />
+          {/if}
+          <a href={"/" + member.id}>{member.name}</a>
+        </article>
+      {/each}
+    {:else}
+      <p class="empty">No members found</p>
+    {/if}
   </div>
 </section>
-
-<section class="search container">
-  <input
-    type="text"
-    placeholder="Search by name..."
-    bind:value={search}
-    aria-label="Search by name"
-  />
-</section>
-
-<section class="filter-sort-bar container">
-  <SortBar active={sort} on:sort={handleSort} />
-  <FilterBar active={filter} on:filter={handleFilter} />
-
-  <div class="squadbar">
-    <span>squad:</span>
-    {#each availableSquads as squad}
-      <button
-        class:selected={selectedSquad === squad}
-        aria-pressed={selectedSquad === squad}
-        on:click={() => clickSquad(squad)}
-      >
-        {squad}
-      </button>
-    {/each}
-  </div>
-</section>
-
-<div class="members-grid">
-  {#if sortedMembers.length > 0}
-    {#each sortedMembers as member}
-      <article class="member-card">
-        {#if member.mugshot}
-          <img
-            src={"https://fdnd.directus.app/assets/" +
-              member.mugshot +
-              "?width=300&height=300&fit=cover"}
-            alt={member.name}
-          />
-        {/if}
-        <a href={"/" + member.id}>{member.name}</a>
-      </article>
-    {/each}
-  {:else}
-    <p class="empty">No members found</p>
-  {/if}
-</div>
 
 <style>
   @font-face {
@@ -169,7 +173,7 @@
   @font-face {
     font-family: "Codystar";
     src: url("/fonts/Codystar-Light.ttf") format("truetype");
-    font-weight: 400;
+    font-weight: 600;
     font-style: normal;
     font-display: swap;
   }
@@ -182,14 +186,7 @@
     margin: 0;
     color: var(--text);
     background: transparent;
-    font-family:
-      "Inter",
-      system-ui,
-      -apple-system,
-      Segoe UI,
-      Roboto,
-      Arial,
-      sans-serif;
+    font-family: "Helvetica Neue", sans-serif;
     font-weight: 300;
     position: relative;
   }
@@ -200,12 +197,6 @@
     z-index: -1;
     pointer-events: none;
     background: linear-gradient(to bottom, #ffa6ca 0%, #fffeff 60%);
-  }
-
-  .container {
-    max-width: var(--container);
-    width: min(100% - 32px, var(--container));
-    margin-inline: auto;
   }
 
   .topbar {
@@ -284,13 +275,38 @@
     pointer-events: none;
   }
 
+  .main-container {
+    margin: auto;
+    max-width: 48%;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 100px;
+  }
+
   .filter-sort-bar {
     display: flex;
     gap: 2rem;
-    justify-content: center;
+    justify-content: space-between;
     align-items: baseline;
     flex-wrap: nowrap;
-    margin: 1rem auto 0.5rem;
+    margin: 1rem 0;
+    font-weight: 350;
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .filter-sort-bar :where(button, span) {
+    font: inherit;
+  }
+
+  .filter-sort-bar
+    :is(
+      .sortbar button.selected,
+      .filterbar button.selected,
+      .squadbar button.selected
+    ) {
+    border-bottom: 1px solid #000;
   }
 
   .squadbar {
@@ -298,45 +314,46 @@
     justify-content: center;
     align-items: baseline;
     gap: 1rem;
-    font-family: "Helvetica Neue", sans-serif;
     font-size: 0.9rem;
     margin: 0;
     flex-wrap: nowrap;
     line-height: 1;
   }
-  .squadbar span {
-    font-weight: 300;
-    font-size: 0.9rem;
-  }
+
   .squadbar button {
     background: none;
     border: none;
     padding: 0.3rem 0.6rem;
-    font-size: 0.9rem;
     cursor: pointer;
-    text-transform: lowercase;
-    font-weight: 300;
-    letter-spacing: 0.03rem;
-    transition: all 0.1s ease;
   }
+
   .squadbar button.selected {
-    font-weight: 300;
     border-bottom: 1px solid black;
   }
 
   .search {
-    display: grid;
-    gap: 1rem;
-    place-items: center;
-    margin: 1rem auto 2rem;
-    max-width: 520px;
+    display: flex;
+    gap: 0.75rem;
+    place-items: start;
+    margin: 1rem 0rem;
+    max-width: var(--container);
   }
+
   .search input {
-    width: 100%;
-    padding: 10px 12px;
-    border: 2px solid plum;
-    border-radius: 8px;
-    font-size: 1rem;
+    width: min(300px, 100%);
+    padding: 6px 4px;
+    border: none;
+    border-bottom: 1px solid #000;
+    border-radius: 0;
+    background: transparent;
+    outline: none;
+    font-size: clamp(15px, 0.7rem, 18px);
+  }
+
+  .search input::placeholder {
+    color: rgba(0, 0, 0, 0.6);
+    font-style: italic;
+    letter-spacing: 0.02em;
   }
 
   .members-grid {
@@ -361,7 +378,7 @@
   .member-card a {
     margin-top: 0.5rem;
     font-size: 1rem;
-    font-weight: 300;
+    font-weight: 100;
     text-decoration: none;
     color: black;
     text-align: center;

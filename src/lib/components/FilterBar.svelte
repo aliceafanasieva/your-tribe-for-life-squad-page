@@ -27,19 +27,16 @@
 <style>
   .filterbar {
     display: flex;
-    justify-content: center;
-    align-items: baseline; /* ровная линия */
+    justify-content: flex-start;
+    align-items: baseline;
     gap: 1rem;
     font-family: "Helvetica Neue", sans-serif;
     font-size: 0.9rem;
-    margin: 0; /* было margin-bottom: 2rem */
-    flex-wrap: nowrap;
+    margin: 0;
     line-height: 1;
+    font-weight: inherit;
   }
-  .filterbar span {
-    font-weight: 300;
-    font-size: 0.9rem;
-  }
+
   .filterbar button {
     background: none;
     border: none;
@@ -47,12 +44,10 @@
     font-size: 0.9rem;
     cursor: pointer;
     text-transform: lowercase;
-    font-weight: 300;
-    letter-spacing: 0.03rem;
     transition: all 0.1s ease;
+    font: inherit;
   }
   .filterbar button.selected {
-    font-weight: 300;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #000;
   }
 </style>
