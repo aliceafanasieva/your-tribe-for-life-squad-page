@@ -31,7 +31,7 @@
     align-items: baseline;
     gap: 1rem;
     font-family: "Helvetica Neue", sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     margin: 0;
     line-height: 1;
     font-weight: inherit;
@@ -41,7 +41,6 @@
     background: none;
     border: none;
     padding: 0.3rem 0.6rem;
-    font-size: 0.9rem;
     cursor: pointer;
     text-transform: lowercase;
     transition: all 0.1s ease;

@@ -77,12 +77,10 @@
 
 <header class="topbar">
   <div class="container topbar__inner">
-    <span class="topbar_brand">squadpage</span>
-    <span class="topbar_center">fdnd</span>
-    <div class="topbar_right">
-      <span>2025</span>
-      <span class="dot">D</span>
-    </div>
+    <p class="topbar_brand">squadpage</p>
+    <p class="topbar_center">fdnd</p>
+    <p class="topbar_right">2025</p>
+    <p class="theme">D</p>
   </div>
 </header>
 
@@ -114,16 +112,16 @@
 
   <p class="discover">discover squads</p>
 
-  <section class="search container">
+  <section class="search">
     <input
       type="text"
-      placeholder="Search by name..."
+      placeholder="Search by a name . . ."
       bind:value={search}
       aria-label="Search by name"
     />
   </section>
 
-  <section class="filter-sort-bar container">
+  <section class="filter-sort-bar">
     <SortBar active={sort} on:sort={handleSort} />
     <FilterBar active={filter} on:filter={handleFilter} />
 
@@ -180,14 +178,14 @@
 
   :global(:root) {
     --container: 1200px;
-    --text: #0d0d21;
+    --text: #000000;
   }
   :global(body) {
     margin: 0;
     color: var(--text);
     background: transparent;
-    font-family: "Helvetica Neue", sans-serif;
-    font-weight: 300;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 200;
     position: relative;
   }
   :global(body)::before {
@@ -196,43 +194,38 @@
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background: linear-gradient(to bottom, #ffa6ca 0%, #fffeff 60%);
+    background: linear-gradient(to bottom, #ff95c1 0%, #fffeff 70%);
+  }
+
+  p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 200;
   }
 
   .topbar {
-    padding: 12px 0;
+    padding: 1rem 0;
     font-size: 0.95rem;
     line-height: 1;
   }
+
   .topbar__inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: center;
-  }
-  .topbar_brand {
-    justify-self: start;
-    text-transform: lowercase;
-    letter-spacing: 0.02em;
-  }
-  .topbar_center {
-    justify-self: center;
-    text-transform: lowercase;
-  }
-  .topbar_right {
-    justify-self: end;
     display: flex;
+    justify-items: start;
+    justify-content: space-around;
     align-items: center;
-    gap: 18px;
   }
-  .dot {
+
+  .theme {
     display: inline-flex;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
+    line-height: 500px;
     border-radius: 50%;
-    border: 2px solid var(--text);
+    font-size: 20px;
+    background: #000;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
+    color: #ff95c1;
     line-height: 1;
   }
 
@@ -276,21 +269,27 @@
   }
 
   .main-container {
-    margin: auto;
-    max-width: 48%;
-    padding-left: 0px;
-    padding-right: 0px;
-    padding-top: 100px;
+    margin-inline: auto;
+    inline-size: 80%;
+    padding-inline: 0;
+    padding-block-start: clamp(48px, 8vw, 100px);
+    container-type: inline-size;
+    container-name: page;
+  }
+
+  .main-container
+    > :where(.intro-grid, .discover, .search, .filter-sort-bar, .members-grid) {
+    inline-size: 100%;
   }
 
   .filter-sort-bar {
     display: flex;
-    gap: 2rem;
-    justify-content: space-between;
+    flex-wrap: wrap;
     align-items: baseline;
-    flex-wrap: nowrap;
-    margin: 1rem 0;
-    font-weight: 350;
+    justify-content: flex-start;
+    gap: clamp(0.75rem, 3vw, 3rem);
+    margin: 2rem 0;
+    font-weight: 400;
     font-synthesis-weight: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -314,7 +313,7 @@
     justify-content: center;
     align-items: baseline;
     gap: 1rem;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     margin: 0;
     flex-wrap: nowrap;
     line-height: 1;
@@ -325,6 +324,7 @@
     border: none;
     padding: 0.3rem 0.6rem;
     cursor: pointer;
+    text-transform: uppercase;
   }
 
   .squadbar button.selected {
@@ -333,10 +333,7 @@
 
   .search {
     display: flex;
-    gap: 0.75rem;
-    place-items: start;
-    margin: 1rem 0rem;
-    max-width: var(--container);
+    margin: 2rem 0;
   }
 
   .search input {
@@ -347,23 +344,25 @@
     border-radius: 0;
     background: transparent;
     outline: none;
-    font-size: clamp(15px, 0.7rem, 18px);
+    font-size: 0.8rem;
   }
 
   .search input::placeholder {
-    color: rgba(0, 0, 0, 0.6);
+    color: #000;
     font-style: italic;
     letter-spacing: 0.02em;
   }
 
   .members-grid {
     display: grid;
-    grid-template-columns: repeat(1, 220px);
-    gap: 2rem 0.5rem;
-    justify-content: center;
-    max-width: 1200px;
-    margin: 0 auto 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: clamp(1rem, 3vw, 2rem) clamp(0.5rem, 2vw, 1rem);
+    justify-items: center;
+    margin: 0;
+    inline-size: 100%;
+    max-width: none;
   }
+
   .member-card {
     display: flex;
     flex-direction: column;
@@ -377,32 +376,40 @@
   }
   .member-card a {
     margin-top: 0.5rem;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 100;
     text-decoration: none;
     color: black;
     text-align: center;
-  }
-  .empty {
-    text-align: center;
-    color: gray;
-    font-style: italic;
-    grid-column: 1 / -1;
   }
 
   @media (min-width: 768px) {
     .members-grid {
       grid-template-columns: repeat(2, 220px);
     }
+    .main-container {
+      inline-size: 80%;
+    }
   }
   @media (min-width: 900px) {
     .members-grid {
       grid-template-columns: repeat(3, 220px);
     }
+    .main-container {
+      inline-size: 65%;
+    }
   }
   @media (min-width: 1200px) {
     .members-grid {
       grid-template-columns: repeat(4, 220px);
+    }
+    .main-container {
+      inline-size: 55%;
+    }
+  }
+  @media (min-width: 1400px) {
+    .main-container {
+      inline-size: 50%;
     }
   }
 </style>
