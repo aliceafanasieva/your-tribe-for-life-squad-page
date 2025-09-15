@@ -75,15 +75,6 @@
   });
 </script>
 
-<header class="topbar">
-  <div class="container topbar__inner">
-    <p class="topbar_brand">squadpage</p>
-    <p class="topbar_center">fdnd</p>
-    <p class="topbar_right">2025</p>
-    <p class="theme">D</p>
-  </div>
-</header>
-
 <section class="hero">
   <div class="container hero__wrap">
     <div class="hero_star">*</div>
@@ -203,33 +194,6 @@
   p {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 200;
-  }
-
-  .topbar {
-    padding: 1rem 1.5rem;
-    font-size: 0.95rem;
-    line-height: 1;
-  }
-
-  .topbar__inner {
-    display: flex;
-    justify-items: start;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .theme {
-    display: inline-flex;
-    width: 40px;
-    height: 40px;
-    line-height: 500px;
-    border-radius: 50%;
-    font-size: 20px;
-    background: #000;
-    align-items: center;
-    justify-content: center;
-    color: #ff95c1;
-    line-height: 1;
   }
 
   .hero {
