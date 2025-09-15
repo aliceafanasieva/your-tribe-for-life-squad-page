@@ -1,36 +1,7 @@
-<!-- <script>
-  let { data } = $props();
-
-  const member = data.member;
-
-</script>
-
-<a href="/">Terug naar overzicht</a>
-
-<section>
-  <div></div>
-
-  <img
-      src="https://fdnd.directus.app/assets/{member.mugshot}?fit=cover&width=500"
-      alt={member.name}
-    />
-
-  <h1>{member.name}</h1>
-  <h2>{member.bio}</h2>
-  <h3>Link naar mijn visitkaartje</h3>
-
-</section>
-
-
-
- -->
-
  <script>
   let { data } = $props();
   const member = data.member;
 </script>
-
-<a href="/" class="back-button">← Terug naar overzicht</a>
 
 <section class="profile-card">
   <div class="avatar-container">
@@ -61,19 +32,6 @@
   background-attachment: fixed; /* ثابت عند السكروول */
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-.back-button {
-  display: inline-block;
-  margin: 1rem 1rem;
-  text-decoration: none;
-  color: #000000;
-  font-weight: 600;
-  transition: color 0.2s;
-}
-
-.back-button:hover {
-  color: #a14ed1;
 }
 
 /* Mobile-First: صورة فوق + نص تحت */
