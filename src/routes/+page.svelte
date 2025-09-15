@@ -96,13 +96,14 @@
   <section>
     <div class="intro-grid">
       <p class="intro left">
-        <span class="strong">WELCOME!</span> <span class="tiny">THIS</span>
+        <span class="strong"><span class="dropcap">W</span>ELCOME!</span>
+        <span class="tiny">THIS</span>
         <span class="strong">SQUADPAGE</span> <span class="tiny">WAS MADE</span>
         <span class="strong">BY</span> <span class="tiny">ALISA AND ABEER</span>
       </p>
       <p class="intro right">
         <span class="tiny">HERE YOU CAN</span>
-        <span class="strong">DISCOVER</span>
+        <span class="strong"><span class="dropcap">D</span>ISCOVER</span>
         <span class="tiny">THE TWO</span> <span class="strong">SQUADS</span>
         <span class="tiny">FROM THE SECOND YEAR OF</span>
         <span class="strong">FDND</span> <span class="tiny">COURSE</span>
@@ -327,28 +328,20 @@
     letter-spacing: 0.02em;
   }
 
-  .intro.left .tiny::first-letter {
+  .dropcap {
     font-family: "Milton One", Georgia, serif;
     font-style: italic;
     font-weight: 700;
-    float: left;
-    font-size: clamp(72px, 12vw, 160px);
-    line-height: 0.75;
-    padding-right: 0.15em;
-    margin-top: 0.08em;
-  }
-  .intro.right .strong:first-of-type::first-letter {
-    font-family: "Milton One", Georgia, serif;
-    font-style: italic;
-    font-weight: 700;
-    font-size: clamp(72px, 12vw, 160px);
-    line-height: 0.75;
+    font-size: clamp(72px, 12vw, 80px);
+    line-height: 1;
     margin-right: 0.06em;
+    float: top;
   }
 
   .discover {
     margin-top: 5rem;
     margin-bottom: 20rem;
+    justify-self: center;
   }
 
   .filter-sort-bar {
