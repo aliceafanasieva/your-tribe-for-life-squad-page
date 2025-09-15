@@ -96,9 +96,9 @@
   <section>
     <div class="intro-grid">
       <p class="intro left">
-        <span class="kicker">WELCOME!</span> <span class="tiny">THIS</span>
+        <span class="strong">WELCOME!</span> <span class="tiny">THIS</span>
         <span class="strong">SQUADPAGE</span> <span class="tiny">WAS MADE</span>
-        <span class="tiny">BY</span> <span class="strong">ALISA AND ABEER</span>
+        <span class="strong">BY</span> <span class="tiny">ALISA AND ABEER</span>
       </p>
       <p class="intro right">
         <span class="tiny">HERE YOU CAN</span>
@@ -151,7 +151,9 @@
               alt={member.name}
             />
           {/if}
-          <a href={"/" + member.id}>{member.name}</a>
+          <span class="member-name">
+            <a href={"/" + member.id}>{member.name}</a>
+          </span>
         </article>
       {/each}
     {:else}
@@ -203,7 +205,7 @@
   }
 
   .topbar {
-    padding: 1rem 0;
+    padding: 1rem 1.5rem;
     font-size: 0.95rem;
     line-height: 1;
   }
@@ -211,7 +213,7 @@
   .topbar__inner {
     display: flex;
     justify-items: start;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
   }
 
@@ -280,6 +282,73 @@
   .main-container
     > :where(.intro-grid, .discover, .search, .filter-sort-bar, .members-grid) {
     inline-size: 100%;
+  }
+
+  @media (min-width: 900px) {
+    .main-container {
+      inline-size: 75%;
+    }
+  }
+  @media (min-width: 1200px) {
+    .main-container {
+      inline-size: 70%;
+    }
+  }
+  @media (min-width: 1400px) {
+    .main-container {
+      inline-size: 65%;
+    }
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(24px, 6vw, 80px);
+    align-items: start;
+    margin: clamp(12px, 2vw, 24px) 0;
+  }
+
+  .intro {
+    margin: 0;
+    line-height: 1.15;
+    font-weight: 300;
+  }
+
+  .intro .tiny {
+    font-size: clamp(10px, 0.9vw, 18px);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.9;
+  }
+
+  .intro .strong {
+    font-size: clamp(22px, 2.8vw, 25px);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  .intro.left .tiny::first-letter {
+    font-family: "Milton One", Georgia, serif;
+    font-style: italic;
+    font-weight: 700;
+    float: left;
+    font-size: clamp(72px, 12vw, 160px);
+    line-height: 0.75;
+    padding-right: 0.15em;
+    margin-top: 0.08em;
+  }
+  .intro.right .strong:first-of-type::first-letter {
+    font-family: "Milton One", Georgia, serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: clamp(72px, 12vw, 160px);
+    line-height: 0.75;
+    margin-right: 0.06em;
+  }
+
+  .discover {
+    margin-top: 5rem;
+    margin-bottom: 20rem;
   }
 
   .filter-sort-bar {
@@ -355,61 +424,58 @@
 
   .members-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: clamp(1rem, 3vw, 2rem) clamp(0.5rem, 2vw, 1rem);
-    justify-items: center;
-    margin: 0;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(clamp(220px, 24vw, 320px), 1fr)
+    );
+    gap: clamp(16px, 2vw, 32px);
+    justify-content: center;
+    margin-bottom: 10rem;
     inline-size: 100%;
-    max-width: none;
+  }
+
+  @media (min-width: 768px) {
+    .members-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .members-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .members-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 
   .member-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 200px;
-  }
-  .member-card img {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-  }
-  .member-card a {
-    margin-top: 0.5rem;
-    font-size: 0.95rem;
-    font-weight: 100;
-    text-decoration: none;
-    color: black;
-    text-align: center;
+    inline-size: 100%;
+    max-width: none;
   }
 
-  @media (min-width: 768px) {
-    .members-grid {
-      grid-template-columns: repeat(2, 220px);
-    }
-    .main-container {
-      inline-size: 80%;
-    }
+  .member-card img {
+    display: block;
+    inline-size: 100%;
+    height: auto;
+    object-fit: cover;
   }
-  @media (min-width: 900px) {
-    .members-grid {
-      grid-template-columns: repeat(3, 220px);
-    }
-    .main-container {
-      inline-size: 65%;
-    }
+
+  .member-name {
+    margin-top: 0.5rem;
   }
-  @media (min-width: 1200px) {
-    .members-grid {
-      grid-template-columns: repeat(4, 220px);
-    }
-    .main-container {
-      inline-size: 55%;
-    }
-  }
-  @media (min-width: 1400px) {
-    .main-container {
-      inline-size: 50%;
-    }
+
+  .member-name a {
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    text-align: center;
   }
 </style>
