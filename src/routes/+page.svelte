@@ -339,9 +339,13 @@
   }
 
   .discover {
-    margin-top: 5rem;
-    margin-bottom: 20rem;
-    justify-self: center;
+    font-family: "Times New Roman", Times, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(14px, 1.2vw, 20px);
+    text-align: center;
+    letter-spacing: 0.02em;
+    margin-block: clamp(7rem, 6vw, 20rem);
   }
 
   .filter-sort-bar {
