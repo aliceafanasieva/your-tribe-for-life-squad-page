@@ -1,6 +1,7 @@
 <script>
   import SortBar from "$lib/components/SortBar.svelte";
   import FilterBar from "$lib/components/FilterBar.svelte";
+  import Search from "$lib/components/Search.svelte";
 
   let { data } = $props();
   const members = data?.members ?? [];
@@ -32,6 +33,7 @@
     const r = rolesOf(m);
     return r.includes("co_teacher") || r.includes("squad_leader");
   };
+
   const isStudent = (m) => {
     const r = rolesOf(m);
     return r.includes("member") && !isTeacher(m);
@@ -79,7 +81,7 @@
   <div class="container hero__wrap">
     <div class="hero_star">*</div>
     <h1 class="hero_title">Squadpage</h1>
-    <div class="hero_year">2025–2026</div>
+    <div class="hero_year">2025-2026</div>
   </div>
 </section>
 
@@ -104,14 +106,7 @@
 
   <p class="discover">discover squads</p>
 
-  <section class="search">
-    <input
-      type="text"
-      placeholder="Search by a name . . ."
-      bind:value={search}
-      aria-label="Search by name"
-    />
-  </section>
+  <Search bind:value={search} />
 
   <section class="filter-sort-bar">
     <SortBar active={sort} on:sort={handleSort} />
@@ -123,7 +118,7 @@
         <button
           class:selected={selectedSquad === squad}
           aria-pressed={selectedSquad === squad}
-          on:click={() => clickSquad(squad)}
+          onclick={() => clickSquad(squad)}
         >
           {squad}
         </button>
@@ -359,28 +354,6 @@
 
   .squadbar button.selected {
     border-bottom: 1px solid black;
-  }
-
-  .search {
-    display: flex;
-    margin: 2rem 0;
-  }
-
-  .search input {
-    width: min(300px, 100%);
-    padding: 6px 4px;
-    border: none;
-    border-bottom: 1px solid #000;
-    border-radius: 0;
-    background: transparent;
-    outline: none;
-    font-size: 0.8rem;
-  }
-
-  .search input::placeholder {
-    color: #000;
-    font-style: italic;
-    letter-spacing: 0.02em;
   }
 
   .members-grid {
