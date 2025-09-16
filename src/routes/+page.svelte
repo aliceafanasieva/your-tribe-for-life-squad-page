@@ -16,44 +16,47 @@
   function handleSort(event) {
     sort = event.detail.value;
   }
+
   function handleFilter(event) {
     filter = event.detail.value;
   }
 
-  function clickSquad(sq) {
-    selectedSquad = selectedSquad === sq ? "" : sq;
+  function clickSquad(squadName) {
+    selectedSquad = selectedSquad === squadName ? "" : squadName;
   }
 
-  const rolesOf = (m) =>
-    Array.isArray(m?.role)
-      ? m.role.map((r) => String(r).toLowerCase())
-      : [String(m?.role ?? "").toLowerCase()];
+  const rolesOf = (member) =>
+    Array.isArray(member?.role)
+      ? member.role.map((role) => String(role).toLowerCase())
+      : [String(member?.role ?? "").toLowerCase()];
 
-  const isTeacher = (m) => {
-    const r = rolesOf(m);
-    return r.includes("co_teacher") || r.includes("squad_leader");
+  const isTeacher = (member) => {
+    const roles = normalizeRoles(member);
+    return roles.includes("co_teacher") || roles.includes("squad_leader");
   };
 
-  const isStudent = (m) => {
-    const r = rolesOf(m);
-    return r.includes("member") && !isTeacher(m);
+  const isStudent = (member) => {
+    const roles = normalizeRoles(member);
+    return roles.includes("member") && !isTeacher(member);
   };
 
   const filteredMembers = $derived.by(() => {
     let list = members;
 
     if (filter === "teachers") list = list.filter(isTeacher);
-    else if (filter === "students") list = list.filter(isStudent);
+    else if (list === "students") list = list.filter(isStudent);
 
     if (selectedSquad) {
-      list = list.filter((m) =>
-        m.squads?.some((s) => s?.squad_id?.name === selectedSquad)
+      list = list.filter((member) =>
+        member.squads?.some((squad) => squad?.squad_id?.name === selectedSquad)
       );
     }
 
-    const q = search.trim().toLowerCase();
-    if (q) {
-      list = list.filter((m) => (m.name ?? "").toLowerCase().includes(q));
+    const query = search.trim().toLowerCase();
+    if (query) {
+      list = list.filter((member) =>
+        (member.name ?? "").toLowerCase().includes(query)
+      );
     }
 
     return list;
@@ -61,16 +64,20 @@
 
   const sortedMembers = $derived.by(() => {
     if (sort === "name") {
-      return [...filteredMembers].sort((a, b) =>
-        (a.name ?? "").localeCompare(b.name ?? "", "nl", {
+      return [...filteredMembers].sort((memberA, memberB) =>
+        (memberA.name ?? "").localeCompare(memberB.name ?? "", "nl", {
           sensitivity: "base",
         })
       );
     }
+
     if (sort === "age") {
-      const t = (d) => (d ? new Date(d).getTime() : Infinity);
+      const toTimestamp = (dateString) =>
+        dateString ? new Date(dateString).getTime() : Infinity;
+
       return [...filteredMembers].sort(
-        (a, b) => t(a.birthdate) - t(b.birthdate)
+        (memberA, memberB) =>
+          toTimestamp(memberA.birthdate) - toTimestamp(memberB.birthdate)
       );
     }
     return filteredMembers;
