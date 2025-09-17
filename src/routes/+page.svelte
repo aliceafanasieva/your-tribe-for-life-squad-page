@@ -1,6 +1,4 @@
 <script>
-  import SortBar from "$lib/components/SortBar.svelte";
-  import FilterBar from "$lib/components/FilterBar.svelte";
   import FilterSortBar from "$lib/components/FilterSortBar.svelte";
   import Search from "$lib/components/Search.svelte";
 
@@ -86,34 +84,32 @@
 </script>
 
 <section class="hero">
-  <div class="container hero__wrap">
+  <div class="hero_wrap">
     <div class="hero_star">*</div>
     <h1 class="hero_title">Squadpage</h1>
     <div class="hero_year">2025-2026</div>
   </div>
 </section>
 
+<section class="intro-grid">
+  <p class="intro left">
+    <span class="strong mixed"><span class="dropcap">W</span>ELCOME!</span>
+    <span class="tiny">THIS</span>
+    <span class="strong">SQUADPAGE</span> <span class="tiny">WAS MADE</span>
+    <span class="strong">BY</span> <span class="tiny">ALISA AND ABEER</span>
+  </p>
+  <p class="intro right">
+    <span class="tiny">HERE YOU CAN</span>
+    <span class="strong mixed"><span class="dropcap">D</span>ISCOVER</span>
+    <span class="tiny">THE TWO</span> <span class="strong">SQUADS</span>
+    <span class="tiny">FROM THE SECOND YEAR OF</span>
+    <span class="strong">FDND</span> <span class="tiny">COURSE</span>
+  </p>
+</section>
+
+<p class="discover">discover squads</p>
+
 <section class="main-container">
-  <section>
-    <div class="intro-grid">
-      <p class="intro left">
-        <span class="strong"><span class="dropcap">W</span>ELCOME!</span>
-        <span class="tiny">THIS</span>
-        <span class="strong">SQUADPAGE</span> <span class="tiny">WAS MADE</span>
-        <span class="strong">BY</span> <span class="tiny">ALISA AND ABEER</span>
-      </p>
-      <p class="intro right">
-        <span class="tiny">HERE YOU CAN</span>
-        <span class="strong"><span class="dropcap">D</span>ISCOVER</span>
-        <span class="tiny">THE TWO</span> <span class="strong">SQUADS</span>
-        <span class="tiny">FROM THE SECOND YEAR OF</span>
-        <span class="strong">FDND</span> <span class="tiny">COURSE</span>
-      </p>
-    </div>
-  </section>
-
-  <p class="discover">discover squads</p>
-
   <Search bind:value={search} />
 
   <FilterSortBar bind:sort bind:filter bind:selectedSquad {availableSquads} />
@@ -161,6 +157,7 @@
     --container: 1200px;
     --text: #000000;
   }
+
   :global(body) {
     margin: 0;
     color: var(--text);
@@ -169,6 +166,7 @@
     font-weight: 200;
     position: relative;
   }
+
   :global(body)::before {
     content: "";
     position: fixed;
@@ -185,48 +183,116 @@
 
   .hero {
     position: relative;
-    padding-block: 2.5rem 1rem;
+    overflow: visible;
+    padding: 0rem 5rem;
+    margin-bottom: 1rem;
   }
-  .hero__wrap {
+
+  .hero_wrap {
+    position: relative;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    min-block-size: clamp(10rem, 52vh, 40rem);
+  }
+
+  .hero_title {
+    position: absolute;
+    top: clamp(0.25rem, 2vw, 1rem);
+    margin: 0;
+    z-index: 3;
+    font-family: "Milton One", Georgia, serif;
+    font-weight: 700;
+    color: #fff;
+    text-align: left;
+    margin: 0;
+    font-size: clamp(7rem, 22vw, 30rem);
+    line-height: 0.85;
     position: relative;
   }
-  .hero_title {
-    font-family: "Milton One", Georgia, serif;
-    color: #fff;
-    font-weight: 700;
-    font-size: clamp(80px, 12vw, 500px);
-    line-height: 0.9;
-    text-align: center;
-    margin: 0.4rem 0 0.6rem;
-  }
+
   .hero_year {
     position: absolute;
-    inset-inline: 0;
-    top: clamp(-30px, -4vw, -60px);
-    text-align: center;
+    top: clamp(12rem, 10vh, 36rem);
+    z-index: 1;
     font-family: "Codystar", system-ui, sans-serif;
-    font-size: clamp(80px, 7.5vw, 300px);
-    color: #fff;
-    opacity: 0.55;
-    letter-spacing: 0.06em;
-    pointer-events: none;
+    color: #fff0f6;
+    font-size: clamp(8rem, 22vw, 17rem);
+    line-height: 1;
+    white-space: nowrap;
+    max-inline-size: 100%;
   }
+
   .hero_star {
     position: absolute;
-    right: clamp(10px, 6vw, 120px);
-    top: clamp(10px, 6vw, 120px);
-    font-family: "Codystar";
-    font-size: clamp(40px, 6vw, 140px);
+    right: clamp(0.5rem, 6vw, 7.5rem);
+    top: clamp(0.5rem, 6vw, 7.5rem);
+    font-family: "Codystar", system-ui, sans-serif;
     color: #fff;
     opacity: 0.85;
+    font-size: clamp(2.5rem, 20vw, 15rem);
     pointer-events: none;
+    z-index: 3;
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 12vw, 7rem);
+    align-items: start;
+    margin: clamp(12px, 2vw, 24px) 0;
+    margin-inline: auto;
+    inline-size: 75%;
+    container-type: inline-size;
+  }
+
+  .intro {
+    margin: 0;
+    line-height: 1.15;
+    font-weight: 300;
+  }
+
+  .tiny {
+    font-size: clamp(10px, 0.9vw, 18px);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.9;
+  }
+
+  .strong {
+    font-size: clamp(22px, 2.8vw, 25px);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  .mixed {
+    line-height: 20%;
+  }
+
+  .dropcap {
+    font-family: "Milton One", Georgia, serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: clamp(72px, 12vw, 80px);
+    line-height: 1;
+    margin-right: 0.06em;
+    float: top;
+  }
+
+  .discover {
+    font-family: "Times New Roman", Times, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(14px, 1.2vw, 20px);
+    text-align: center;
+    letter-spacing: 0.02em;
+    margin-bottom: 10rem;
   }
 
   .main-container {
     margin-inline: auto;
     inline-size: 80%;
-    padding-inline: 0;
-    padding-block-start: clamp(48px, 8vw, 100px);
+    padding-block-start: clamp(5rem, 14vw, 10rem);
     container-type: inline-size;
     container-name: page;
   }
@@ -252,53 +318,6 @@
     }
   }
 
-  .intro-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(24px, 6vw, 80px);
-    align-items: start;
-    margin: clamp(12px, 2vw, 24px) 0;
-  }
-
-  .intro {
-    margin: 0;
-    line-height: 1.15;
-    font-weight: 300;
-  }
-
-  .intro .tiny {
-    font-size: clamp(10px, 0.9vw, 18px);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    opacity: 0.9;
-  }
-
-  .intro .strong {
-    font-size: clamp(22px, 2.8vw, 25px);
-    font-weight: 300;
-    letter-spacing: 0.02em;
-  }
-
-  .dropcap {
-    font-family: "Milton One", Georgia, serif;
-    font-style: italic;
-    font-weight: 700;
-    font-size: clamp(72px, 12vw, 80px);
-    line-height: 1;
-    margin-right: 0.06em;
-    float: top;
-  }
-
-  .discover {
-    font-family: "Times New Roman", Times, serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(14px, 1.2vw, 20px);
-    text-align: center;
-    letter-spacing: 0.02em;
-    margin-block: clamp(7rem, 6vw, 20rem);
-  }
-
   .members-grid {
     display: grid;
     grid-template-columns: repeat(
@@ -320,6 +339,21 @@
   @media (min-width: 900px) {
     .members-grid {
       grid-template-columns: repeat(3, 1fr);
+    }
+    .intro .tiny {
+      font-size: clamp(13px, 2vw, 18px);
+      letter-spacing: 0.02em;
+    }
+    .intro .strong {
+      font-size: clamp(22px, 5vw, 36px);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+    .dropcap {
+      font-size: clamp(72px, 14vw, 100px);
+      line-height: 1;
+      margin-right: 0.09em;
+      float: top;
     }
   }
 
