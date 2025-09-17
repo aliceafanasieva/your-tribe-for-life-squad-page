@@ -1,5 +1,4 @@
 <script>
-  // Filter variables
 
   // let { data } = $props();
   export let data;
