@@ -33,22 +33,30 @@ Geef feedback aan teamleden
 
 ### Alisa
 - Hoe heb je mij als teamlid ervaren?
-* Het was gewoon prima.
+
+Het was gewoon prima.
 - Welke tips heb je voor mij?
-* Minder uren op werk maken, zodat je meer tijd hebt voor school en minder stress hebt. 
+
+Minder uren op werk maken, zodat je meer tijd hebt voor school en minder stress hebt. 
 - Wat zou ik moeten veranderen om prettiger samen te werken
 
+Niks
+
+- Waar ben je trots op?
+
+Ik ben trots op wat er is gelukt om te behalen voor deze sprint, en omdat onze persoonlijke doelen zijn behaald. 
 
 ### Abeer
+
 - Hoe heb je mij als teamlid ervaren?
-* Het ging allemaal goed, communicatie was makkeljk en je werkte gewoon aan jouw taken. 
+
+Het ging allemaal goed, communicatie was makkeljk en je werkte gewoon aan jouw taken. 
 - Welke tips heb je voor mij?
-* Misschien meer commits schrijven en projectboard meer onder de knie hebben. 
+  
+Misschien meer commits schrijven en projectboard meer onder de knie hebben. 
 - Wat zou ik moeten veranderen om prettiger samen te werken
-* Het ging allemaal goed, dus ik weet niet echt wat nog kan. 
+  
+Het ging allemaal goed, dus ik weet niet echt wat nog kan. 
 - Waar ben je trots op?
-* Ik ben trots op wat er is gelukt om te behalen voor deze sprint, en omdat onze persoonlijke doelen zijn behaald. 
-
-3. Verwerking
-Verwerk de ontvangen en gegeven feedback in je LEARNINGS.md
-
+  
+Ik ben trots dat de persoonlijke doelen behaald zijn en het was gelukt om samen te werken.
