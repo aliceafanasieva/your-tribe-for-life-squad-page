@@ -13,6 +13,7 @@ Goed, alle communicatie ging goed, we hebben elkaar geholpen wanneer het moest, 
 Ja, elk van ons heeft zijn doelen behaald.
 
 <img width="327" height="186" alt="image" src="https://github.com/user-attachments/assets/66b1e838-1c21-4e4a-ad6a-9801445c08fa" />
+
 _Screenshot van Goals op Teamcanvas_
 
 ### 3. Wat zouden we de volgende keer beter willen doen als team?
