@@ -30,20 +30,23 @@
       : [String(member?.role ?? "").toLowerCase()];
 
   const isTeacher = (member) => {
-    const roles = normalizeRoles(member);
+    const roles = rolesOf(member);
     return roles.includes("co_teacher") || roles.includes("squad_leader");
   };
 
   const isStudent = (member) => {
-    const roles = normalizeRoles(member);
-    return roles.includes("member") && !isTeacher(member);
+    const roles = rolesOf(member);
+    return (
+      roles.includes("member") &&
+      !(roles.includes("co_teacher") || roles.includes("squad_leader"))
+    );
   };
 
   const filteredMembers = $derived.by(() => {
     let list = members;
 
     if (filter === "teachers") list = list.filter(isTeacher);
-    else if (list === "students") list = list.filter(isStudent);
+    else if (filter === "students") list = list.filter(isStudent);
 
     if (selectedSquad) {
       list = list.filter((member) =>
@@ -85,22 +88,24 @@
 
 <section class="hero">
   <div class="hero_wrap">
-    <div class="hero_star">*</div>
-    <h1 class="hero_title">Squadpage</h1>
+    <div class="hero-top">
+      <h1 class="hero_title">Squadpage</h1>
+      <div class="hero_star">*</div>
+    </div>
     <div class="hero_year">2025-2026</div>
   </div>
 </section>
 
 <section class="intro-grid">
   <p class="intro left">
-    <span class="strong mixed"><span class="dropcap">W</span>ELCOME!</span>
+    <span class="strong"><span class="dropcap">W</span>ELCOME!</span>
     <span class="tiny">THIS</span>
     <span class="strong">SQUADPAGE</span> <span class="tiny">WAS MADE</span>
     <span class="strong">BY</span> <span class="tiny">ALISA AND ABEER</span>
   </p>
   <p class="intro right">
     <span class="tiny">HERE YOU CAN</span>
-    <span class="strong mixed"><span class="dropcap">D</span>ISCOVER</span>
+    <span class="strong"><span class="dropcap">D</span>ISCOVER</span>
     <span class="tiny">THE TWO</span> <span class="strong">SQUADS</span>
     <span class="tiny">FROM THE SECOND YEAR OF</span>
     <span class="strong">FDND</span> <span class="tiny">COURSE</span>
@@ -183,56 +188,49 @@
 
   .hero {
     position: relative;
-    overflow: visible;
-    padding: 0rem 5rem;
+    padding: 0rem 1rem;
+    margin-top: 5rem;
     margin-bottom: 1rem;
+    inline-size: min(100vw, 1440px);
   }
 
   .hero_wrap {
     position: relative;
-    flex-direction: column;
-    align-items: flex-start;
+    min-block-size: clamp(22rem, 43vh, 30rem);
+  }
+
+  .hero-top {
+    display: flex;
+    flex-direction: row;
     width: 100%;
-    min-block-size: clamp(10rem, 52vh, 40rem);
+    height: auto;
+    margin: 0;
+    align-items: end;
+    line-height: 0.3;
   }
 
   .hero_title {
-    position: absolute;
     top: clamp(0.25rem, 2vw, 1rem);
     margin: 0;
-    z-index: 3;
     font-family: "Milton One", Georgia, serif;
     font-weight: 700;
     color: #fff;
     text-align: left;
-    margin: 0;
     font-size: clamp(7rem, 22vw, 30rem);
-    line-height: 0.85;
-    position: relative;
   }
 
   .hero_year {
-    position: absolute;
-    top: clamp(12rem, 10vh, 36rem);
-    z-index: 1;
     font-family: "Codystar", system-ui, sans-serif;
-    color: #fff0f6;
-    font-size: clamp(8rem, 22vw, 17rem);
+    color: #ffffff;
+    font-size: clamp(10rem, 18.89vw, 17rem);
     line-height: 1;
-    white-space: nowrap;
-    max-inline-size: 100%;
   }
 
   .hero_star {
-    position: absolute;
-    right: clamp(0.5rem, 6vw, 7.5rem);
-    top: clamp(0.5rem, 6vw, 7.5rem);
     font-family: "Codystar", system-ui, sans-serif;
     color: #fff;
-    opacity: 0.85;
-    font-size: clamp(2.5rem, 20vw, 15rem);
-    pointer-events: none;
-    z-index: 3;
+    margin: 0;
+    font-size: clamp(2.5rem, 16.67vw, 15rem);
   }
 
   .intro-grid {
@@ -263,10 +261,6 @@
     font-size: clamp(22px, 2.8vw, 25px);
     font-weight: 300;
     letter-spacing: 0.02em;
-  }
-
-  .mixed {
-    line-height: 20%;
   }
 
   .dropcap {
@@ -302,65 +296,16 @@
     inline-size: 100%;
   }
 
-  @media (min-width: 900px) {
-    .main-container {
-      inline-size: 75%;
-    }
-  }
-  @media (min-width: 1200px) {
-    .main-container {
-      inline-size: 70%;
-    }
-  }
-  @media (min-width: 1400px) {
-    .main-container {
-      inline-size: 65%;
-    }
-  }
-
   .members-grid {
     display: grid;
     grid-template-columns: repeat(
       auto-fit,
       minmax(clamp(220px, 24vw, 320px), 1fr)
     );
-    gap: clamp(16px, 2vw, 32px);
+    gap: clamp(1rem, 8vw, 3rem);
     justify-content: center;
     margin-bottom: 10rem;
     inline-size: 100%;
-  }
-
-  @media (min-width: 768px) {
-    .members-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 900px) {
-    .members-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    .intro .tiny {
-      font-size: clamp(13px, 2vw, 18px);
-      letter-spacing: 0.02em;
-    }
-    .intro .strong {
-      font-size: clamp(22px, 5vw, 36px);
-      font-weight: 300;
-      letter-spacing: 0.02em;
-    }
-    .dropcap {
-      font-size: clamp(72px, 14vw, 100px);
-      line-height: 1;
-      margin-right: 0.09em;
-      float: top;
-    }
-  }
-
-  @media (min-width: 1100px) {
-    .members-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
   }
 
   .member-card {
@@ -388,5 +333,63 @@
     text-decoration: none;
     color: rgb(0, 0, 0);
     text-align: center;
+  }
+
+  @media (min-width: 750px) {
+    .members-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 850px) {
+    .members-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .main-container {
+      inline-size: 75%;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .intro .tiny {
+      font-size: clamp(13px, 2vw, 18px);
+      letter-spacing: 0.02em;
+    }
+
+    .intro .strong {
+      font-size: clamp(22px, 5vw, 36px);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+
+    .hero {
+      padding: 0rem 5rem;
+    }
+
+    .hero_year {
+      white-space: nowrap;
+    }
+
+    .dropcap {
+      font-size: clamp(72px, 14vw, 100px);
+      line-height: 1;
+      margin-right: 0.09em;
+      float: top;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .main-container {
+      inline-size: 70%;
+    }
+    .members-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .main-container {
+      inline-size: 65%;
+    }
   }
 </style>
