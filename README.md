@@ -1,4 +1,4 @@
-## Beschrijven:
+## Beschrijving:
 
 We hebben een squadpage gemaakt met het gebruik van Svelteklt. Hier kan je de leden en docenten van de squadpage zien. Om meer te weten over elke persoon hebben we een details pagina gemaakt.
 
