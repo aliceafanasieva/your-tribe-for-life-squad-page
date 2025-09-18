@@ -1,11 +1,6 @@
 [build]
-command = "npm run build"
-publish = ".svelte-kit/output/client"
+  command = "npm run build"
+  publish = ".svelte-kit/output/client"
 
 [build.environment]
-NODE_VERSION = "20"
-
-[[redirects]]
-from = "/*"
-to = "/.netlify/functions/sveltekit-render"
-status = 200
+  NODE_VERSION = "20"
