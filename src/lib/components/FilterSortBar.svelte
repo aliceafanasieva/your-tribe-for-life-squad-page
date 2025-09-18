@@ -30,7 +30,8 @@
       <button
         class:selected={selectedSquad === squad}
         aria-pressed={selectedSquad === squad}
-        on:click={() => clickSquad(squad)}
+        type="button"
+        onclick={() => clickSquad(squad)}
       >
         {squad}
       </button>
