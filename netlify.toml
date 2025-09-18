@@ -1,6 +1,5 @@
 [build]
   command = "npm run build"
-  publish = ".svelte-kit/output/client"
 
 [build.environment]
   NODE_VERSION = "20"
