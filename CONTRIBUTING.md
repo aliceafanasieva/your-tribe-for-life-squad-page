@@ -12,6 +12,45 @@ Bij ons samenwerking gelden ook code conventies, beschreven hier: https://docs.f
 ## Commits conventies
 
 Bij ons samenwerking gelden ook code conventies, beschreven hier: https://www.conventionalcommits.org/nl/v1.0.0/.
+Als jij commit, geef aan wat type de van wijzigingen jouw commit heeft. 
+
+### Commit types:
+
+* **build::**
+
+Wijzigingen die het build-systeem of externe afhankelijkheden beïnvloeden.
+
+* **chore::**
+
+Routinematige taken, zoals het bijwerken van dependencies, die geen productiecode wijzigen.
+
+* **ci::**
+
+Wijzigingen aan CI-scripts en -configuraties.
+
+* **docs::**
+
+Documentatie-gerelateerde wijzigingen.
+
+* **perf::**
+
+Code die de prestaties verbetert.
+
+* **refactor::**
+
+Code-wijzigingen die de structuur of het ontwerp verbeteren, maar de functionaliteit niet veranderen.
+
+* **revert::**
+
+De terugdraaiing van een eerdere commit.
+
+* **style::**
+
+Wijzigingen die de code-opmaak betreffen, zoals witruimte of formatting, en geen effect hebben op de code-uitvoering.
+
+* **test::**
+
+Toevoegen van ontbrekende tests of het herzien van bestaande tests.
 
 ## Animatie naamgeving conventies 
 
