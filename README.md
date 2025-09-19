@@ -1,8 +1,9 @@
 ## Beschrijving:
 
-We hebben een squadpage gemaakt met het gebruik van Svelteklt. Hier kan je de leden en docenten van de squadpage zien. Om meer te weten over elke persoon hebben we een details pagina gemaakt.
+We hebben een squadpage gemaakt met het gebruik van Svelteklt. Hier kan je de studenten en docenten van jaar 2 FDND zien. Om meer te weten over elke persoon hebben we een details pagina gemaakt.
 
-<img width="734" height="473" alt="Screenshot 2025-09-18 233730" src="https://github.com/user-attachments/assets/8a6d6698-2dc5-4396-9133-b2df23f9bd56" />
+<img width="1416" height="687" alt="image" src="https://github.com/user-attachments/assets/8be05a4d-f5a5-4e56-826c-8e8101212c75" />
+
 
 ## Kenmerken:
 
