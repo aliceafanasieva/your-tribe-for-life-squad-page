@@ -400,7 +400,6 @@
     }
   }
 
-  /* БАЗА: анимация на загрузке */
   .preSlide {
     opacity: 0;
     transform: translateY(30px);
@@ -416,12 +415,10 @@
     }
   }
 
-  /* Опционально: скролл-раскрытие — только для элементов с классом .scroll */
   @supports (animation-timeline: view()) {
     .preSlide.scroll {
       animation-timeline: view();
       animation-range: entry 20% cover 20%;
-      /* имя, длительность и т.д. остаются из базового правила */
     }
   }
 
