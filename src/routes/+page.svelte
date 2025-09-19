@@ -126,7 +126,7 @@
   <div class="members-grid">
     {#if sortedMembers.length > 0}
       {#each sortedMembers as member}
-        <article class="member-card">
+        <a class="member-card" href={"/" + member.id} aria-label={member.name}>
           {#if member.mugshot}
             <img
               src={"https://fdnd.directus.app/assets/" +
@@ -135,10 +135,8 @@
               alt={member.name}
             />
           {/if}
-          <span class="member-name">
-            <a href={"/" + member.id}>{member.name}</a>
-          </span>
-        </article>
+          <span class="member-name">{member.name}</span>
+        </a>
       {/each}
     {:else}
       <p class="empty">No members found</p>
