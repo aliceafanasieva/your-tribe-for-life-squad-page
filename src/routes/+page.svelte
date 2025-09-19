@@ -89,21 +89,25 @@
 <section class="hero">
   <div class="hero_wrap">
     <div class="hero-top">
-      <h1 class="hero_title">Squadpage</h1>
-      <div class="hero_star">*</div>
+      <h1 class="hero_title preSlide" style="--reveal-delay:100ms">
+        Squadpage
+      </h1>
+      <div class="hero_star preSlide" style="--reveal-delay: 1.3s">*</div>
     </div>
-    <div class="hero_year">2025-2026</div>
+    <div class="hero_year preSlide" style="--reveal-delay: 500ms">
+      2025–2026
+    </div>
   </div>
 </section>
 
 <section class="intro-grid">
-  <p class="intro left">
+  <p class="intro left preSlide" style="--reveal-delay: 900ms">
     <span class="strong"><span class="dropcap">W</span>ELCOME!</span>
     <span class="tiny">THIS</span>
     <span class="strong">SQUADPAGE</span> <span class="tiny">WAS MADE</span>
     <span class="strong">BY</span> <span class="tiny">ALISA AND ABEER</span>
   </p>
-  <p class="intro right">
+  <p class="intro right preSlide" style="--reveal-delay: 900ms">
     <span class="tiny">HERE YOU CAN</span>
     <span class="strong"><span class="dropcap">D</span>ISCOVER</span>
     <span class="tiny">THE TWO</span> <span class="strong">SQUADS</span>
@@ -112,7 +116,7 @@
   </p>
 </section>
 
-<p class="discover">discover squads</p>
+<p class="discover preSlide" style="--reveal-delay: 1.2s">discover squads</p>
 
 <section class="main-container">
   <Search bind:value={search} />
@@ -390,6 +394,39 @@
   @media (min-width: 1400px) {
     .main-container {
       inline-size: 65%;
+    }
+  }
+
+  /* БАЗА: анимация на загрузке */
+  .preSlide {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 700ms ease forwards;
+    animation-delay: var(--reveal-delay, 0ms);
+    will-change: transform, opacity;
+  }
+
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Опционально: скролл-раскрытие — только для элементов с классом .scroll */
+  @supports (animation-timeline: view()) {
+    .preSlide.scroll {
+      animation-timeline: view();
+      animation-range: entry 20% cover 20%;
+      /* имя, длительность и т.д. остаются из базового правила */
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .preSlide {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
     }
   }
 </style>
