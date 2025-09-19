@@ -22,7 +22,7 @@ Klik op de localhost link en begin met coden!
 
 ## Gebruik:
 
-Om deze pagina live te bekijken kan je klikken op de livelink.
+Om deze pagina live te bekijken kan je klikken op de livelink (https://squad-page-alisa-abeer.netlify.app/).
 
 Op deze squadpage kan je leden uit je tribe bekijken en informatie over hen lezen.
  
