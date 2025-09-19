@@ -316,6 +316,13 @@
     align-items: center;
     inline-size: 100%;
     max-width: none;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.4s ease;
+  }
+
+  .member-card:hover {
+    transform: scale(1.05) translateY(-2px);
   }
 
   .member-card img {
